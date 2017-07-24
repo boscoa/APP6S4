@@ -2,66 +2,118 @@ clear all
 close all
 clc
 
-[s1, Fe] = audioread('Sons/signal_A.wav');
-[s2, Fe] = audioread('Sons/signal_B.wav');
+ [s1, Fe] = audioread('Sons/signal_A.wav');
+%[s1, Fe] = audioread('Sons/signal_B.wav');
 
 RIFlowpass = RIFsetup();
-
-s1 = filter(RIFlowpass,s1);
-s1 = downsample(s1,6);
+s1 = [s1; zeros(42,1)];
+sig1 = filter(RIFlowpass,s1);
+sig1 = sig1(43:end);
+sig1 = downsample(sig1,6);
 Fe = Fe/6;
+delai = 8;
 
-for id = 1:32:length(s1);
-    sig1 = s1(id:id+32);
+sig1 = [sig1; zeros(delai-1,1)];
+[b,a] = cheby1(2,0.1,[400 600]/(Fe/2));
+r1 = filter(b,a,sig1);
+r1 = r1(delai:end);
 
-    figure
-    subplot(3,2,1);
-    [b,a] = cheby1(1,10,[499 501]/(Fe/2));
-    r = filter(b,a,sig1);
-    []
-%     plot(abs(fft(r,Fe)));
+[b,a] = cheby1(2,0.1,[900 1100]/(Fe/2));
+r2 = filter(b,a,sig1);
+r2 = r2(delai:end);
 
-    subplot(3,2,2);
-    [b,a] = cheby1(1,10,[999 1001]/(Fe/2));
-    r = filter(b,a,sig1);
-%     plot(abs(fft(r,Fe)));
+[b,a] = cheby1(2,0.1,[1400 1600]/(Fe/2));
+r3  = filter(b,a,sig1);
+r3 = r3(delai:end);
 
-    subplot(3,2,3);
-    [b,a] = cheby1(1,10,[1499 1501]/(Fe/2));
-    r = filter(b,a,sig1);
-%     plot(abs(fft(r,Fe)));
+[b,a] = cheby1(2,0.1,[1900 2100]/(Fe/2));
+r4 = filter(b,a,sig1);
+r4 = r4(delai:end);
 
-    subplot(3,2,4);
-    [b,a] = cheby1(1,10,[1999 2001]/(Fe/2));
-    r = filter(b,a,sig1);
-%     plot(abs(fft(r,Fe)));
+[b,a] = cheby1(2,0.1,[2400 2600]/(Fe/2));
+r5 = filter(b,a,sig1);
+r5 = r5(delai:end);
 
-    subplot(3,2,5);
-    [b,a] = cheby1(1,10,[2499 2501]/(Fe/2));
-    r = filter(b,a,sig1);
-%     plot(abs(fft(r,Fe)));
+[b,a] = cheby1(2,0.1,[2900 3100]/(Fe/2));
+r6 = filter(b,a,sig1);
+r6 = r6(delai:end);
 
-    subplot(3,2,6);
-    [b,a] = cheby1(1,10,[2999 3001]/(Fe/2));
-    r = filter(b,a,sig1);
-%     plot(abs(fft(r,Fe)));
+thresbits = [];
+img = [];
+thres = 0.03;
+for id = 1:32:length(r1)-31
+    bits = [];
+    t1 = r1(id:id+31) .* triang(32);
+    t2 = r2(id:id+31) .* triang(32);
+    t3 = r3(id:id+31) .* triang(32);
+    t4 = r4(id:id+31) .* triang(32);
+    t5 = r5(id:id+31) .* triang(32);
+    t6 = r6(id:id+31) .* triang(32);
+    bit1 = mean(abs(t1));
+    bit2 = mean(abs(t2));
+    bit3 = mean(abs(t3));
+    bit4 = mean(abs(t4));
+    bit5 = mean(abs(t5));
+    bit6 = mean(abs(t6));
+    
+    thresbits = [thresbits bit1 bit2 bit3 bit4 bit5 bit6];
+    
+    if (bit1 > thres)
+        bits = [bits 1];
+    else
+        bits = [bits 0];
+    end    
+    if (bit2 > thres)
+        bits = [bits 1];
+    else
+        bits = [bits 0];
+    end    
+    if (bit3 > thres)
+        bits = [bits 1];
+    else
+        bits = [bits 0];
+    end    
+    if (bit4 > thres)
+        bits = [bits 1];
+    else
+        bits = [bits 0];
+    end    
+    if (bit5 > thres)
+        bits = [bits 1];
+    else
+        bits = [bits 0];
+    end    
+    if (bit6 > thres)
+        bits = [bits 1];
+    else
+        bits = [bits 0];
+    end
+    
+    img = [img bi2de(bits)];
 end
 
+thresbits = reshape(thresbits, [6,16384]);
 
+subplot(3,2,1)
+plot(thresbits(1,:),'.');
 
-    % dTheta = 0.01;
-    % delta1 = 0.01;
-    % delta2 = 0.01;
-    % beta = 0;
-    % A = -20*log(delta1);
-    % if A> 50
-    %     beta = 0.1102*(A-8.7);
-    % elseif (21<A)&&(50>A)
-    %     beta = 0.5842*((A-21).^0.4) + 0.07886*(A-21);
-    % else 
-    %     beta = 0;
-    % end
-    % N = int32((A-8)/(2.285*dTheta));
+subplot(3,2,2)
+plot(thresbits(2,:),'.');
 
-    % fKaiser = kaiser(N,beta);
-    % plot(fKaiser);
+subplot(3,2,3)
+plot(thresbits(3,:),'.');
+
+subplot(3,2,4)
+plot(thresbits(4,:),'.');
+
+subplot(3,2,5)
+plot(thresbits(5,:),'.');
+
+subplot(3,2,6)
+plot(thresbits(6,:),'.');
+
+img = reshape(img,[128,128]);
+
+figure
+imshow(img,[0 63]);
+
