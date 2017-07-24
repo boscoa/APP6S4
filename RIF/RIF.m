@@ -9,3 +9,5 @@ RIFlowpass = RIFsetup();
 
 r = filter(RIFlowpass,s1);
 r = downsample(r,6);
+
+plot(abs(fft(r,Fe/6)));
