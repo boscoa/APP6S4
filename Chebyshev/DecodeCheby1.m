@@ -8,27 +8,27 @@ function img = DecodeCheby1(SO,Fe)
     delai = 8;
 
     sig = [sig; zeros(delai-1,1)];
-    [b,a] = cheby1(2,0.1,[400 600]/(Fe/2));
+    [b,a] = cheby1(1,1,[400 600]/(Fe/2));
     r1 = filter(b,a,sig);
     r1 = r1(delai:end);
 
-    [b,a] = cheby1(2,0.1,[900 1100]/(Fe/2));
+    [b,a] = cheby1(1,1,[900 1100]/(Fe/2));
     r2 = filter(b,a,sig);
     r2 = r2(delai:end);
 
-    [b,a] = cheby1(2,0.1,[1400 1600]/(Fe/2));
+    [b,a] = cheby1(1,1,[1400 1600]/(Fe/2));
     r3  = filter(b,a,sig);
     r3 = r3(delai:end);
 
-    [b,a] = cheby1(2,0.1,[1900 2100]/(Fe/2));
+    [b,a] = cheby1(1,1,[1900 2100]/(Fe/2));
     r4 = filter(b,a,sig);
     r4 = r4(delai:end);
 
-    [b,a] = cheby1(2,0.1,[2400 2600]/(Fe/2));
+    [b,a] = cheby1(1,1,[2400 2600]/(Fe/2));
     r5 = filter(b,a,sig);
     r5 = r5(delai:end);
 
-    [b,a] = cheby1(2,0.1,[2900 3100]/(Fe/2));
+    [b,a] = cheby1(1,1,[2900 3100]/(Fe/2));
     r6 = filter(b,a,sig);
     r6 = r6(delai:end);
 
