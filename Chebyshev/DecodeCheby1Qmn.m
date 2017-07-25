@@ -8,6 +8,7 @@ function img = DecodeCheby1Qmn(m,n,SO,Fe)
     delai = 8;
 
     sig = [sig; zeros(delai-1,1)];
+    
     [b,a] = cheby1(1,1,[400 600]/(Fe/2));
     r1 = filter_Qmn(sig,b,a,2,m,n)';
     r1 = r1(delai:end);
