@@ -1,5 +1,5 @@
 function img = DecodeCheby1(SO,Fe)
-    RIFlowpass = RIFsetup();
+    [RIFlowpass,b] = RIFsetup();
     SO = [SO; zeros(42,1)];
     sig = filter(RIFlowpass,SO);
     sig = sig(43:end);
@@ -16,13 +16,16 @@ function img = DecodeCheby1(SO,Fe)
     r2 = filter(b,a,sig);
     r2 = r2(delai:end);
 
+
     [b,a] = cheby1(1,1,[1400 1600]/(Fe/2));
     r3  = filter(b,a,sig);
     r3 = r3(delai:end);
 
+
     [b,a] = cheby1(1,1,[1900 2100]/(Fe/2));
     r4 = filter(b,a,sig);
     r4 = r4(delai:end);
+
 
     [b,a] = cheby1(1,1,[2400 2600]/(Fe/2));
     r5 = filter(b,a,sig);

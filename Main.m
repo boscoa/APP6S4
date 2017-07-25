@@ -9,7 +9,7 @@ clc
 imgcheby1 = DecodeCheby1(s1,Fe);
 imgchebyqmn1 = DecodeCheby1Qmn(1,6,s1,Fe);
 imgcheby2 = DecodeCheby1(s2,Fe);
-imgchebyqmn2 = DecodeCheby1Qmn(1,7,s2,Fe);
+imgchebyqmn2 = DecodeCheby1Qmn(1,6,s2,Fe);
 
 imgbutter1 = Butterworth(s1,Fe);
 imgbutterqmn1 = ButterworthQmn(1,6,s1,Fe);
@@ -24,17 +24,17 @@ imgbutterqmn2 = ButterworthQmn(1,6,s2,Fe);
 
 % figure
 % imshow(imgcheby1,[0 63]);
-% figure
-% imshow(imgchebyqmn1,[0 63]);
+figure
+imshow(imgchebyqmn1,[0 63]);
 % figure
 % imshow(imgcheby2,[0 63]);
-% figure
-% imshow(imgchebyqmn2,[0 63]);
+figure
+imshow(imgchebyqmn2,[0 63]);
 % figure
 % imshow(imgbutter1,[0 63]);
-% figure
-% imshow(imgbutterqmn1,[0 63]);
+figure
+imshow(imgbutterqmn1,[0 63]);
 % figure
 % imshow(imgbutter2,[0 63]);
-% figure
-% imshow(imgbutterqmn2,[0 63]);
+figure
+imshow(imgbutterqmn2,[0 63]);

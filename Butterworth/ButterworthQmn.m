@@ -1,6 +1,6 @@
 function img = ButterworthQmn(m, n, s1,Fe)
 
-  RIFlowpass = RIFsetup();
+    [RIFlowpass,b] = RIFsetup();
     s1 = [s1; zeros(42,1)];
     sig1 = filter(RIFlowpass,s1);
     sig1 = sig1(43:end);

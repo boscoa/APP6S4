@@ -1,4 +1,4 @@
-function Hd = RIFsetup
+function [Hd,b] = RIFsetup
 %RIFSETUP Returns a discrete-time filter object.
 
 % MATLAB Code

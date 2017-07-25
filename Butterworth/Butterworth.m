@@ -1,47 +1,60 @@
 function img = Butterworth(s1,Fe)
     RIFlowpass = RIFsetup();
+%     sig1 = Multicadence(s1);
     s1 = [s1; zeros(42,1)];
     sig1 = filter(RIFlowpass,s1);
     sig1 = sig1(43:end);
     sig1 = downsample(sig1,6);
     Fe = Fe/6;
-    delai = 13;
+    delai = 13; 
 
-    sig1 = [sig1; zeros(delai-1,1)];
+    sig1 = [sig1; zeros(43,1)];
 
     d1 = 400;
     d2= 600;
     [b,a] = butter(1, [d1 d2]/4000);
+    roots(b)
+    roots(a)
     r1 = filter(b,a,sig1);
     r1 = r1(delai:end);
 
     d1 = 900;
     d2= 1100;
     [b,a] = butter(1, [d1 d2]/4000);
+    roots(b)
+    roots(a)
     r2 = filter(b,a,sig1);
     r2 = r2(delai:end);
 
     d1 = 1400;
     d2= 1600;
     [b,a] = butter(1, [d1 d2]/4000);
+    roots(b)
+    roots(a)
     r3  = filter(b,a,sig1);
     r3 = r3(delai:end);
 
     d1 = 1900;
     d2= 2100;
     [b,a] = butter(1, [d1 d2]/4000);
+    roots(b)
+    roots(a)
     r4 = filter(b,a,sig1);
     r4 = r4(delai:end);
 
     d1 = 2400;
     d2= 2600;
     [b,a] = butter(1, [d1 d2]/4000);
+    roots(b)
+    roots(a)
     r5 = filter(b,a,sig1);
     r5 = r5(delai:end);
 
     d1 = 2900;
     d2= 3100;
     [b,a] = butter(1, [d1 d2]/4000);
+    roots(b)
+    roots(a)
     r6 = filter(b,a,sig1);
     r6 = r6(delai:end);
 

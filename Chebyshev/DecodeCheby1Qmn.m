@@ -1,5 +1,5 @@
 function img = DecodeCheby1Qmn(m,n,SO,Fe)
-    RIFlowpass = RIFsetup();
+    [RIFlowpass,b] = RIFsetup();
     SO = [SO; zeros(42,1)];
     sig = filter(RIFlowpass,SO);
     sig = sig(43:end);
