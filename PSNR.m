@@ -1,4 +1,4 @@
-function [ratio MSE] = PSNR(I,K)
+function [ratio, MSE] = PSNR(I,K)
 
 % m = largeur d'une image
 % n = longueur d'une image
@@ -16,3 +16,4 @@ end
 MSE = MSE/(m.*n);
 MAXi = max(I(:));
 ratio = 20.*log(MAXi) - 10.*log(MSE);
+MSE = 20.*log(MSE);
