@@ -9,27 +9,27 @@ function img = DecodeCheby1Qmn(m,n,SO,Fe)
 
     sig = [sig; zeros(delai-1,1)];
     [b,a] = cheby1(2,0.1,[400 600]/(Fe/2));
-    r1 = filter_Qmn(sig,b,a,2,m,n);
+    r1 = filter_Qmn(sig,b,a,2,m,n)';
     r1 = r1(delai:end);
 
     [b,a] = cheby1(2,0.1,[900 1100]/(Fe/2));
-    r2 = filter_Qmn(sig,b,a,2,m,n);
+    r2 = filter_Qmn(sig,b,a,2,m,n)';
     r2 = r2(delai:end);
 
     [b,a] = cheby1(2,0.1,[1400 1600]/(Fe/2));
-    r3  = filter_Qmn(sig,b,a,2,m,n);
+    r3  = filter_Qmn(sig,b,a,2,m,n)';
     r3 = r3(delai:end);
 
     [b,a] = cheby1(2,0.1,[1900 2100]/(Fe/2));
-    r4 = filter_Qmn(sig,b,a,2,m,n);
+    r4 = filter_Qmn(sig,b,a,2,m,n)';
     r4 = r4(delai:end);
 
     [b,a] = cheby1(2,0.1,[2400 2600]/(Fe/2));
-    r5 = filter_Qmn(sig,b,a,2,m,n);
+    r5 = filter_Qmn(sig,b,a,2,m,n)';
     r5 = r5(delai:end);
 
     [b,a] = cheby1(2,0.1,[2900 3100]/(Fe/2));
-    r6 = filter_Qmn(sig,b,a,2,m,n);
+    r6 = filter_Qmn(sig,b,a,2,m,n)';
     r6 = r6(delai:end);
 
     thresbits = [];
@@ -38,12 +38,12 @@ function img = DecodeCheby1Qmn(m,n,SO,Fe)
     i = 0;
     for id = 1:32:length(r1)-31
         bits = [];
-        t1 = r1(id:id+31) .* triang(32)';
-        t2 = r2(id:id+31) .* triang(32)';
-        t3 = r3(id:id+31) .* triang(32)';
-        t4 = r4(id:id+31) .* triang(32)';
-        t5 = r5(id:id+31) .* triang(32)';
-        t6 = r6(id:id+31) .* triang(32)';
+        t1 = r1(id:id+31) .* triang(32);
+        t2 = r2(id:id+31) .* triang(32);
+        t3 = r3(id:id+31) .* triang(32);
+        t4 = r4(id:id+31) .* triang(32);
+        t5 = r5(id:id+31) .* triang(32);
+        t6 = r6(id:id+31) .* triang(32);
         bit1 = mean(abs(t1));
         bit2 = mean(abs(t2));
         bit3 = mean(abs(t3));
