@@ -1,4 +1,4 @@
-function ratio = PSNR(I,K)
+function [ratio MSE] = PSNR(I,K)
 
 % m = largeur d'une image
 % n = longueur d'une image
