@@ -3,83 +3,11 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{geometry}
-\usepackage[english, french]{babel}
-\graphicspath{{../images/} 
+\graphicspath{{images/} 
 \geometry{legalpaper, lmargin=0.7in, bmargin=1in}}
-\selectlanguage{french}
-
-\setlength\parindent{0pt}% globally suppress indentation
 
 \begin{document}
-%%%%%%%%%%%%%%
-%page  titre en caractères plus large
-%%%%%%%%%%%%%%
-\begin{titlepage}   
-	\large{
-		\begin{center}
-			UNIVERSITÉ DE SHERBROOKE\\Faculté de génie\\
-			Département de génie électrique et génie informatique\\
-			\vspace{3cm}
-			{\LARGE\textbf{Traitement numérique des signaux III}}\\
-			\vspace{2cm}
-			\LARGE{Rapport APP6}\\
-			\vspace{2cm}
-			Présenté à\\l'équipe professorale de la session S4\\
-			\vspace{2cm}
-			Produit par\\Éric Beaudoin - beae2211\\Axel Bosco - bosa2002\\Jacob Fontaine - fonj1903\\Philippe Spino - spip2401\\
-			\vspace{1cm}
-			\vfill{26 juillet 2017 - Sherbrooke}
-		\end{center}
-	}
-\end{titlepage}
-
 \newpage
-\section{Design d'un des filtres Butterworth}
-Pour la conception du filtre Butterworth à partir d'un filtre passe-bas, on doit identifier l'ordre de celui-ci, dans notre cas, d'ordre 1. On choisit donc la représentation générale de la fonction de transfert d'un filtre passe-bas d'ordre 1, soit:
-\begin{equation}
-H(s)=\frac{1}{s+1}
-\end{equation}
-En utilisant la valeur de s lorsqu'on passe d'un filtre passe-bas à un filtre passe-bande, soit:
-\begin{equation}
-s = \frac{s^2+\omega_a\omega_b}{(\omega_b-\omega_a)s}
-\end{equation}
-On obtient:
-\begin{equation}
-H(s)=\frac{1}{\frac{s^2+\omega_a\omega_b}{(\omega_b-\omega_a)s}+1}
-\end{equation}
-On remplace alors le s par son équivalent en fréquence, soit:
-\begin{equation}
-s=\frac{2}{T_e}(\frac{z-1}{z+1})
-\end{equation}
-On obtient alors:
-\begin{equation}
-H(z)=\frac{1}{\frac{\frac{2}{T_e}(\frac{z-1}{z+1})^2+\omega_a\omega_b}{(\omega_b-\omega_a)\frac{2}{T_e}(\frac{z-1}{z+1})}+1}
-\end{equation}
-En simplifiant le tout pour ne garder qu'un numérateur et un dénominateur, on obtient:
-\begin{equation}
-H(z)=\frac{(\omega_b-\omega_a)(z-1)(z+1)}{\frac{4}{T_e^2}(z^2-2z+1)+\frac{2}{T_e}(\omega_b-\omega_a)(z-1)(z+1)+\omega_a\omega_b(z+1)^2}
-\end{equation}
-En sachant que $T_e = \frac{1}{F_e}$ et que $Fe$ vaut 8000, $Te = 1/8000$.
-Afin de déterminer la forme finale du filtre, on utilise le premier filtre de Butterworth pour la fréquence de 500Hz avec une fenêtre de 400Hz à 600Hz. En les transformant en $\theta$ grâce à l'expression:
-\begin{equation}
-\theta = 2*arctan(\frac{\omega T_e}{2})
-\end{equation}
-Et ensuite la formule:
-\begin{equation}
-\omega = \frac{2}{T_e}*tan(\frac{\theta}{2})
-\end{equation}
-Les valeurs obtenues sont:
-\begin{equation}
-\omega_a = 2534,15
-\end{equation}
-\begin{equation}
-\omega_b = 3841,26
-\end{equation}
-
-En remplaçant tous les termes calculés dans l'équation (6) et en additionnant tous les termes des mêmes ordres, on obtient l'équation finale de $H(z)$, soit:
-\begin{equation}
-H(z)=\frac{-0.0729573z^{-2} - 0.145915z^{-1} + 0.0729573}{0.854085z^{-2} - 1.86417z^{-1} + 1}
-\end{equation}
 
 \section{Développment Chebychev}
 
@@ -285,8 +213,4 @@ Voici le graphiques freqz du filtre développé à la main avec les coefficient 
 \begin{center}
 	\includegraphics[width=\textwidth]{Cheby1MainFreqz}
 \end{center}
-\end{document}
-
-
-
 \end{document}
